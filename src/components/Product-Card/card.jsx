@@ -5,6 +5,7 @@ import ProductDetails from "../../Pages/Product-details/ProductDetails";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { incrementCounter } from "../../store/slices/counter";
+import { updatePurchasedItems } from "../../store/slices/purchased";
 
 function ProductCard({ singleProduct }) {
   const [showProductDetails, setShowProductDetails] = useState(false);
@@ -14,6 +15,11 @@ function ProductCard({ singleProduct }) {
   const handleClick = () => {
     setShowProductDetails(true);
     navigate(`/productDetail/${singleProduct.id}`);
+  };
+
+  const addToCart = () => {
+    dispatch(incrementCounter());
+    dispatch(updatePurchasedItems(singleProduct));
   };
 
   return (
@@ -44,10 +50,7 @@ function ProductCard({ singleProduct }) {
             </span>
           </p>
           <div className="mt-auto">
-            <button
-              className="btn btn-group btn-primary"
-              onClick={() => dispatch(incrementCounter())}
-            >
+            <button className="btn btn-group btn-primary" onClick={addToCart}>
               Add to cart
             </button>
             {singleProduct.stock === 0 ? (
