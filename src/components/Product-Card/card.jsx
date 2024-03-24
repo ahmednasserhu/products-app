@@ -1,16 +1,19 @@
 import PropTypes from "prop-types";
 import "./card.css";
 import { useState } from "react";
-import ProductDetails from '../../Pages/Product-details/ProductDetails';
+import ProductDetails from "../../Pages/Product-details/ProductDetails";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { incrementCounter } from "../../store/slices/counter";
 
 function ProductCard({ singleProduct }) {
   const [showProductDetails, setShowProductDetails] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleClick = () => {
     setShowProductDetails(true);
-    navigate(`/productDetail/${singleProduct.id}`)
+    navigate(`/productDetail/${singleProduct.id}`);
   };
 
   return (
@@ -19,7 +22,6 @@ function ProductCard({ singleProduct }) {
         id="card-component"
         className="card m-5"
         style={{ width: "18rem", backgroundColor: "#212921", color: "white" }}
-        onClick={handleClick}
       >
         <img
           src={singleProduct.thumbnail}
@@ -28,7 +30,10 @@ function ProductCard({ singleProduct }) {
         />
         <div className="card-body fixed-card-body-size">
           <div className="d-flex">
-            <h5 className="card-title fw-bolder text-primary">
+            <h5
+              className="card-title fw-bolder text-primary"
+              onClick={handleClick}
+            >
               {singleProduct.title}
             </h5>
             <small className="ms-auto">{singleProduct.price}$</small>
@@ -39,7 +44,12 @@ function ProductCard({ singleProduct }) {
             </span>
           </p>
           <div className="mt-auto">
-            <button className="btn btn-group btn-primary">Add to cart</button>
+            <button
+              className="btn btn-group btn-primary"
+              onClick={() => dispatch(incrementCounter())}
+            >
+              Add to cart
+            </button>
             {singleProduct.stock === 0 ? (
               <span className="outOfStockSpan fw-bolder">Out Of Stock</span>
             ) : (
@@ -48,7 +58,7 @@ function ProductCard({ singleProduct }) {
           </div>
         </div>
       </div>
-      {showProductDetails && <ProductDetails productDetail={singleProduct}/>}
+      {showProductDetails && <ProductDetails productDetail={singleProduct} />}
     </div>
   );
 }

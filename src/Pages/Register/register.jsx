@@ -1,7 +1,13 @@
 import { useState } from "react";
 import "./register.css";
+import { useDispatch } from "react-redux";
+import { changeEmail, changeName } from "../../store/slices/profile";
+import { useNavigate } from "react-router-dom";
 
 function Register() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [userInfo, setUserInfo] = useState({
     firstName: "",
     email: "",
@@ -64,8 +70,9 @@ function Register() {
     if (
       Object.values(userInfoErrs).every((err) => err === "")
     ) {
-      console.log("Form submitted successfully:", userInfo);
-      // Submit the form data
+      dispatch(changeName(userInfo.firstName));
+      dispatch(changeEmail(userInfo.email));
+      navigate('/profile')
     }
   };
 

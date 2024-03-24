@@ -1,0 +1,6 @@
+.profile-container{
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  background-color: #383F45;
+}

@@ -2,6 +2,10 @@
   text-decoration: none;
 }
 
+.card-title:hover{
+  text-decoration: underline;
+}
+
 .stockSpan {
   padding: 8px;
   margin-left: 45px;
@@ -34,6 +38,6 @@
 }
 
 #card-component:hover{
-  transform: scale(1.08);
+  transform: scale(1.05);
   cursor: pointer;
 }
